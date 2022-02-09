@@ -39,7 +39,7 @@ export default class DirectoryItems extends Component {
 
     render() {
         return (
-            <div className='directory-menu w-full flex flex-wrap justify-between items-center'>
+            <div className='directory-menu w-full flex flex-wrap md:flex-row flex-col justify-between items-center'>
                 {this.state.sections.map(({title, imageURL, id, size}) => (<MenuItem key={id} title={title} imageURL={imageURL} size={size} />))}
             </div>
         );
