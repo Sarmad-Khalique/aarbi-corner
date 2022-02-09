@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CollectionItem = ({id, name, imageUrl, price}) => {
+const CollectionItem = ({name, imageUrl, price}) => {
   return (
     <div className='collection-item flex flex-col items-center h-96 border-2 shadow-lg overflow-hidden rounded-md'>
         <div className='image mb-2 w-full h-[95%] overflow-hidden' style={{backgroundImage: `url(${imageUrl})`}}/>

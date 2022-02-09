@@ -15,8 +15,8 @@ export default class Shop extends Component {
     return (
       <div className="shop-page px-5 py-20">
         <h1 className="text-4xl font-bold">COLLECTIONS</h1>
-        {collections.map(({ id, title, items }) => (
-          <CollectionPreview key={id} title={title} items={items} />
+        {collections.map(({ id, ...otherCollectionProps }) => (
+          <CollectionPreview key={id} {...otherCollectionProps} />
         ))}
       </div>
     );
