@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+body{
+  font-family: 'Open Sans Condensed', sans-serif;
+}
 .background-image:hover{
   transform: scale(1.1);
   transition: transform 6s cubic-bezier(0.25, 0.45,0.45,0.95);

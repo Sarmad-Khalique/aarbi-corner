@@ -8,7 +8,7 @@ export default class DirectoryItems extends Component {
             sections: [
                 {
                     title: "hats",
-                    imageURL: "https://www.maxpixel.net/static/photo/1x/Hat-Manufacture-Music-Hats-Stack-Felt-Manufactory-1365955.jpg",
+                    imageURL: "https://www.maxpixel.net/static/photo/1x/Hat-Manufacture-Music-Hats-Stack-Felt-Manufactory-1365955.jpg", 
                     id: 1
                 },
                 {
@@ -40,7 +40,7 @@ export default class DirectoryItems extends Component {
     render() {
         return (
             <div className='directory-menu w-full flex flex-wrap md:flex-row flex-col justify-between items-center'>
-                {this.state.sections.map(({title, imageURL, id, size}) => (<MenuItem key={id} title={title} imageURL={imageURL} size={size} />))}
+                {this.state.sections.map(({id, ...otherProps}) => (<MenuItem key={id} {...otherProps} />))}
             </div>
         );
     }

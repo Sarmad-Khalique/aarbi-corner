@@ -13,8 +13,8 @@ const MenuItem = ({ title, imageURL, size }) => {
         backgroundSize: "cover",
       }} />
       <div className="content absolute h-20 p-6 flex flex-col items-center justify-center border border-black cursor-pointer bg-white opacity-70 hover:opacity-90">
-        <h1 className="title text-xl font-bold mb-1">{title.toUpperCase()}</h1>
-        <p className="subtitle font-light hover:underline text-lg">SHOP NOW</p>
+        <h1 className="title text-3xl font-semibold mb-1">{title.toUpperCase()}</h1>
+        <p className="subtitle font-light text-lg">SHOP NOW</p>
       </div>
     </div>
   );
