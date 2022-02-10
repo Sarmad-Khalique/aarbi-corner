@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import FormInput from "../form-input/FormInput";
 
 export default class SignIn extends Component {
   constructor() {
@@ -10,6 +11,8 @@ export default class SignIn extends Component {
   }
   handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name,value)
+    console.log({[name]:value})
 
     this.setState({ [name]: value });
   };
@@ -21,31 +24,31 @@ export default class SignIn extends Component {
   };
   render() {
     return (
-      <div className="sign-in-form-container md:w-1/2 w-full">
+      <div className="sign-in-form-container">
         <h2 className="sign-in-title text-4xl font-semibold mb-3">
           I already have an account
         </h2>
-        <h4 className="sign-in-subtitle text-2xl font-semibold my-3">
+        <h4 className="sign-in-subtitle text-2xl font-semibold pb-8">
           Enter your Email and Password to sign in
         </h4>
-        <form onSubmit={this.handleSubmit} className="flex flex-col justify-center items-start space-y-2">
-          <label className="text-xl font-semibold">Email Address</label>
-          <input
+        <form onSubmit={this.handleSubmit} className="md:w-[30%] w-full">
+          <FormInput
             type="email"
+            label="email"
             name="email"
             onChange={this.handleChange}
-            placeholder="Enter Your Email"
+            value={this.state.email}
+            label="Email"
             className="border-b text-xl w-full border-black"
           />
-          <label className="text-xl font-semibold">Password</label>
-          <input
+          <FormInput
             type="password"
             name="password"
             onChange={this.handleChange}
-            placeholder="Enter Your Passowrd"
+            value={this.state.password}
+            label="Password"
             className="border-b text-xl w-full border-black"
           />
-          <button className="py-3 px-5 w-1/2 bg-black text-white tetx-xl" type="submit">Sign In</button>
         </form>
       </div>
     );
