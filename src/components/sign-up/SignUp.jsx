@@ -1,19 +1,18 @@
 import React, { Component } from "react";
-import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 
-export default class SignIn extends Component {
+export default class SignUp extends Component {
   constructor() {
     super();
     this.state = {
+      displayName: "",
       email: "",
-      password: "",
+      password:"",
+      confirmPassword:""
     };
   }
   handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name,value)
-    console.log({[name]:value})
 
     this.setState({ [name]: value });
   };
@@ -21,25 +20,31 @@ export default class SignIn extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    this.setState({ email: "", password: "" });
+    this.setState({ displayName: "", email: "", password:"", confirmPassword:"" });
   };
   render() {
     return (
-      <div className="sign-in-form-container flex flex-col md:w-[30vw]">
-        <h2 className="sign-in-title text-4xl font-semibold mb-3 my-2">
-          I already have an account
+      <div className="sign-up-form-container my-12 flex flex-col md:w-[30vw]">
+        <h2 className="sign-up-title text-4xl font-semibold mb-3">
+          I don't have an acount
         </h2>
         <h4 className="sign-in-subtitle text-2xl font-semibold pb-8">
-          Sign in with your email and password
+          Sign up with your email and password
         </h4>
         <form onSubmit={this.handleSubmit} className="w-full">
+          <FormInput
+            type="text"
+            name="displayName"
+            onChange={this.handleChange}
+            value={this.state.displayName}
+            label="Display Name"
+          />
           <FormInput
             type="email"
             name="email"
             onChange={this.handleChange}
             value={this.state.email}
             label="Email"
-            className="border-b text-xl w-full border-black"
           />
           <FormInput
             type="password"
@@ -47,11 +52,14 @@ export default class SignIn extends Component {
             onChange={this.handleChange}
             value={this.state.password}
             label="Password"
-            className="border-b text-xl w-full border-black"
           />
-          <CustomButton type="submit">
-            Sign in
-          </CustomButton>
+          <FormInput
+            type="password"
+            name="confirmPassword"
+            onChange={this.handleChange}
+            value={this.state.confirmPassword}
+            label="Confirm Password"
+          />
         </form>
       </div>
     );

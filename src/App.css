@@ -13,3 +13,6 @@ body{
 input:focus{
   outline: none !important;
 }
+.custom-button:hover{
+  border:1px solid black !important;
+}
