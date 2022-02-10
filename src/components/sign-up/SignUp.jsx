@@ -30,8 +30,8 @@ export default class SignUp extends Component {
   };
   render() {
     return (
-      <div className="sign-up-form-container my-12 flex flex-col md:w-[30vw]">
-        <h2 className="sign-up-title text-4xl font-semibold mb-3">
+      <div className="sign-in-form-container flex flex-col md:w-[30vw]">
+        <h2 className="sign-in-title text-4xl font-semibold mb-3 my-2">
           I don't have an acount
         </h2>
         <h4 className="sign-in-subtitle text-2xl font-semibold pb-8">

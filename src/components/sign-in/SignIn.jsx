@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
-import { ReactComponent as GoogleLogo } from "../../assets/google.svg";
+import {ReactComponent as GoogleLogo} from  "../../assets/google.svg"
+
+import { signInWithGoogle } from "../../firebase/firebase.utils";
 
 export default class SignIn extends Component {
   constructor() {
@@ -52,7 +54,11 @@ export default class SignIn extends Component {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <CustomButton type="submit">Sign in</CustomButton>
-            <CustomButton type="GoogleSignIn">Sign in With Google</CustomButton>
+            <CustomButton onClick={signInWithGoogle}>
+              <span className="google-sign-in-container">
+                <GoogleLogo className="flex w-full justify-center items-center"/>
+              </span>
+            </CustomButton>
           </div>
         </form>
       </div>
