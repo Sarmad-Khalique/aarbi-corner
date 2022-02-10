@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
+import { ReactComponent as GoogleLogo } from "../../assets/google.svg";
 
 export default class SignIn extends Component {
   constructor() {
@@ -12,8 +13,8 @@ export default class SignIn extends Component {
   }
   handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name,value)
-    console.log({[name]:value})
+    console.log(name, value);
+    console.log({ [name]: value });
 
     this.setState({ [name]: value });
   };
@@ -49,9 +50,10 @@ export default class SignIn extends Component {
             label="Password"
             className="border-b text-xl w-full border-black"
           />
-          <CustomButton type="submit">
-            Sign in
-          </CustomButton>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <CustomButton type="submit">Sign in</CustomButton>
+            <CustomButton type="GoogleSignIn">Sign in With Google</CustomButton>
+          </div>
         </form>
       </div>
     );

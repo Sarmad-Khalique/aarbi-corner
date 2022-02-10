@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 
 export default class SignUp extends Component {
@@ -7,8 +8,8 @@ export default class SignUp extends Component {
     this.state = {
       displayName: "",
       email: "",
-      password:"",
-      confirmPassword:""
+      password: "",
+      confirmPassword: "",
     };
   }
   handleChange = (e) => {
@@ -20,7 +21,12 @@ export default class SignUp extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    this.setState({ displayName: "", email: "", password:"", confirmPassword:"" });
+    this.setState({
+      displayName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
   render() {
     return (
@@ -60,6 +66,9 @@ export default class SignUp extends Component {
             value={this.state.confirmPassword}
             label="Confirm Password"
           />
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <CustomButton>Sign up</CustomButton>
+          </div>
         </form>
       </div>
     );
