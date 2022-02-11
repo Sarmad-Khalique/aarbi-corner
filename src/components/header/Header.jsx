@@ -37,7 +37,7 @@ class Header extends Component {
             CONTACT
           </Link>
           {this.props.currentUser ? (
-            <div className="option px-3 py-4 hover:cursor-pointer hover:text-red-600" onClick={()=>auth.signOut()}>
+            <div className="option px-3 py-4 hover:cursor-pointer" onClick={()=>auth.signOut()}>
               SIGN OUT
             </div>
           ) : (

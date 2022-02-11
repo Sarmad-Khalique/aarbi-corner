@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+
 export default class SignUp extends Component {
   constructor() {
     super();
@@ -18,8 +20,32 @@ export default class SignUp extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { displayName, email, password, confirmPassword } = this.state;
+
+    if (password !== confirmPassword) {
+      alert("Password's don't match");
+      return;
+    }
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      createUserProfileDocument(user, { displayName });
+
+      this.setState({
+        displayName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      console.log("An error occoured:", error)
+    }
 
     this.setState({
       displayName: "",
@@ -67,7 +93,7 @@ export default class SignUp extends Component {
             label="Confirm Password"
           />
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <CustomButton>Sign up</CustomButton>
+            <CustomButton type="submit">Sign up</CustomButton>
           </div>
         </form>
       </div>

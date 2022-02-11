@@ -3,7 +3,7 @@ import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 import {ReactComponent as GoogleLogo} from  "../../assets/google.svg"
 
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
 
 export default class SignIn extends Component {
   constructor() {
@@ -15,16 +15,22 @@ export default class SignIn extends Component {
   }
   handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
-    console.log({ [name]: value });
 
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
-    this.setState({ email: "", password: "" });
+    try {
+      const {email, password} = this.state;
+      await auth.signInWithEmailAndPassword(email, password);
+      this.setState({ email: "", password: "" });
+
+    } catch (error) {
+      console.log("Error Occoured: ", error)
+    }
+
   };
   render() {
     return (

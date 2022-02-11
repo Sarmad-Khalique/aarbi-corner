@@ -32,7 +32,7 @@ class App extends Component {
             },
           });
         });
-      } else {
+        } else {
         this.setState({
           currentUser: userAuth,
         });
@@ -43,7 +43,7 @@ class App extends Component {
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
-
+  
   render() {
     return (
       <div>
