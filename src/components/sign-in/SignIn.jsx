@@ -24,7 +24,7 @@ export default class SignIn extends Component {
 
     try {
       const {email, password} = this.state;
-      await auth.signInWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email.trim(), password);
       this.setState({ email: "", password: "" });
 
     } catch (error) {

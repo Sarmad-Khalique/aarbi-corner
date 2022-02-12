@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { ReactComponent as Ham } from "../../assets/ham.svg";
+
 import { auth } from "../../firebase/firebase.utils";
+
+import { connect } from "react-redux";
 
 class Header extends Component {
   constructor(props) {
@@ -51,4 +55,8 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(Header);

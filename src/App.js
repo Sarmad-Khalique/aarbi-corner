@@ -1,23 +1,24 @@
 import React, { Component } from "react";
+import { Routes, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { setCurrentUser } from "./redux/user/user.actions";
+
 import "./App.css";
+
 import Homepage from "./pages/homepage/Homepage";
 import Shop from "./pages/shop/Shop";
-import { Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
+
 import SignInandSignUpPage from "./pages/SignInandSignUpPage/SignInandSignUpPage";
+
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      currentUser: null,
-    };
-  }
-
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    const { setCurrentUser } = this.props;
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       const userRef = await createUserProfileDocument(userAuth);
 
@@ -25,17 +26,13 @@ class App extends Component {
       if (userAuth) {
         //onSnapshot checks if the snapshot has updated, using it here to get the copy of the snapshot as the snapshot will never change because we are not updating it
         userRef.onSnapshot((snapshot) => {
-          this.setState({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data(),
-            },
+          setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data(),
           });
         });
-        } else {
-        this.setState({
-          currentUser: userAuth,
-        });
+      } else {
+        setCurrentUser(userAuth);
       }
     });
   }
@@ -43,11 +40,11 @@ class App extends Component {
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
-  
+
   render() {
     return (
       <div>
-        <Header currentUser={this.state.currentUser} />
+        <Header />
         <Routes>
           <Route exact path="/" element={<Homepage />} />
           <Route path="/shop" element={<Shop />} />
@@ -58,4 +55,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
