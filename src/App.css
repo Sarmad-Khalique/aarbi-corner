@@ -18,9 +18,26 @@ body {
 input:focus {
   outline: none !important;
 }
-.custom-button:hover {
-  border: 1px solid black !important;
-}
 .custom-button {
   text-transform: uppercase !important;
+}
+.collection-item>.custom-button{
+  width: 80%;
+  position: absolute;
+  opacity: 0.8;
+  top:260px;
+  display: none;
+  background-color: white;
+  border:1px solid black;
+  color: black;
+}
+.collection-item:hover>.custom-button{
+  display: block;
+}
+.collection-item:hover>.custom-button:hover{
+  background-color: black;
+  color: white;
+}
+.collection-item:hover>.image{
+  opacity: 0.8;
 }
