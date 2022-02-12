@@ -11,7 +11,7 @@ const CartDropdown = ({ toggleCartDropdown }) => {
     >
       <span
         onClick={toggleCartDropdown}
-        className="md:hidden bg-black text-white absolute right-6"
+        className="md:hidden p-2 rounded-md bg-black text-white absolute right-6"
       >
         <Close />
       </span>
