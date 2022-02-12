@@ -7,6 +7,9 @@ import { ReactComponent as Ham } from "../../assets/ham.svg";
 import { auth } from "../../firebase/firebase.utils";
 
 import { connect } from "react-redux";
+import CartIcon from "../cart-icon/CartIcon";
+import CartDropdown from "../cart-dropdown/CartDropdown";
+import { toggleCartDropdown } from "../../redux/cart/cart.actions";
 
 class Header extends Component {
   constructor(props) {
@@ -41,7 +44,10 @@ class Header extends Component {
             CONTACT
           </Link>
           {this.props.currentUser ? (
-            <div className="option px-3 py-4 hover:cursor-pointer" onClick={()=>auth.signOut()}>
+            <div
+              className="option px-3 py-4 hover:cursor-pointer"
+              onClick={() => auth.signOut()}
+            >
               SIGN OUT
             </div>
           ) : (
@@ -49,14 +55,22 @@ class Header extends Component {
               SIGN IN
             </Link>
           )}
+          <Link
+            to="/"
+            className="option px-3 py-4"
+            onClick={() => toggleCartDropdown()}
+          >
+            <CartIcon />
+          </Link>
         </div>
+        {this.props.hidden ? null : <CartDropdown />}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser
-})
+});
 
 export default connect(mapStateToProps)(Header);
