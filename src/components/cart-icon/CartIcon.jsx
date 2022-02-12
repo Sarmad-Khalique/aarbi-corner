@@ -5,7 +5,7 @@ import { toggleCartDropdown } from "../../redux/cart/cart.actions";
 
 const CartIcon = ({toggleCartDropdown}) => {
   return (
-    <div onClick={()=>toggleCartDropdown()} className="cart-icon relative w-11 h-7 flex justify-center items-center">
+    <div onClick={toggleCartDropdown} className="cart-icon relative w-11 h-7 flex justify-center items-center">
         <div className="shopping-bag w-10 h-10">
             <Icon />
         </div>

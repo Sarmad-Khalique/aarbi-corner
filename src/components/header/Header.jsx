@@ -9,11 +9,10 @@ import { auth } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 import CartIcon from "../cart-icon/CartIcon";
 import CartDropdown from "../cart-dropdown/CartDropdown";
-import { toggleCartDropdown } from "../../redux/cart/cart.actions";
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       menuOpen: false,
     };
@@ -55,11 +54,7 @@ class Header extends Component {
               SIGN IN
             </Link>
           )}
-          <Link
-            to="/"
-            className="option px-3 py-4"
-            onClick={() => toggleCartDropdown()}
-          >
+          <Link to="/" className="option px-3 py-4">
             <CartIcon />
           </Link>
         </div>
@@ -69,8 +64,9 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 
 export default connect(mapStateToProps)(Header);
