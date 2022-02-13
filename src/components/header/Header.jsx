@@ -54,9 +54,9 @@ class Header extends Component {
               SIGN IN
             </Link>
           )}
-          <Link to="/" className="option px-3 py-4">
+          <div className="option px-3 py-4 hover:cursor-pointer">
             <CartIcon />
-          </Link>
+          </div>
         </div>
         {this.props.hidden ? null : <CartDropdown />}
       </div>

@@ -3,7 +3,7 @@ import addItemToCart from "./cart.utils";
 
 const INITIAL_STATE = {
     hidden:true,
-    cart: []
+    cartItems: []
 }
 
 export const cartReducer = (state=INITIAL_STATE, action)=>{
@@ -17,13 +17,13 @@ export const cartReducer = (state=INITIAL_STATE, action)=>{
         case cartActionTypes.ADD_ITEM:
             return{
                 ...state,
-                cart:addItemToCart(state.cart, action.payload)
+                cartItems:addItemToCart(state.cartItems, action.payload)
             }
 
         case cartActionTypes.REMOVE_ITEM:
             return{
                 ...state,
-                cart:state.cart.filter((item)=>(item.id!==action.payload.id))
+                cartItems:state.cartItems.filter((item)=>(item.id!==action.payload.id))
             }
     
         default:
