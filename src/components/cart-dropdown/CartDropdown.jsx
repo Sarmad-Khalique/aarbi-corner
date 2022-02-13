@@ -2,9 +2,9 @@ import CustomButton from "../custom-button/CustomButton";
 import { connect } from "react-redux";
 
 import { ReactComponent as Close } from "../../assets/x.svg";
-import { toggleCartDropdown } from "../../redux/cart/cart.actions";
+import { removeItem, toggleCartDropdown } from "../../redux/cart/cart.actions";
 
-const CartDropdown = ({ toggleCartDropdown }) => {
+const CartDropdown = ({ toggleCartDropdown, cart, removeItem }) => {
   return (
     <div
       className={`cart-dropdown border border-black w-screen h-screen top-0 md:w-60 md:h-96 absolute md:right-10 z-10 md:top-36 flex flex-col p-5 justify-between bg-white`}
@@ -15,7 +15,11 @@ const CartDropdown = ({ toggleCartDropdown }) => {
       >
         <Close />
       </span>
-      <div className="cart-items h-72 flex-col overflow-y-scroll" />
+      <div className="cart-items mt-12 md:mt-0 h-72 flex-col overflow-y-scroll">
+        {
+          cart.map((cartItem,i)=>(<div key={i} className="flex justify-between px-2">{cartItem.name} <span className="hover:cursor-pointer" onClick={()=>removeItem(cartItem)}>x</span></div>))
+        }
+      </div>
       <CustomButton>Checkout</CustomButton>
     </div>
   );
@@ -23,6 +27,11 @@ const CartDropdown = ({ toggleCartDropdown }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   toggleCartDropdown: () => dispatch(toggleCartDropdown()),
+  removeItem: (item) => dispatch(removeItem(item))
 });
 
-export default connect(null, mapDispatchToProps)(CartDropdown);
+const mapStateToProps = ({cart:{cart}}) =>({
+  cart
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartDropdown);
