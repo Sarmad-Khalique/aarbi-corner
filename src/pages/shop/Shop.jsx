@@ -13,7 +13,7 @@ export default class Shop extends Component {
   render() {
     const { collections } = this.state;
     return (
-      <div className="shop-page px-6 py-20">
+      <div className="shop-page px-6">
         <h1 className="text-4xl font-bold">COLLECTIONS</h1>
         {collections.map(({ id, ...otherCollectionProps }) => (
           <CollectionPreview key={id} {...otherCollectionProps} />

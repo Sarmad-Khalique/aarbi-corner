@@ -4,11 +4,12 @@ import { connect } from "react-redux";
 import { toggleCartDropdown } from "../../redux/cart/cart.actions";
 
 import { selectCartItemsCount } from "../../redux/cart/cart.selectors"
+import { createStructuredSelector } from "reselect";
 
-const CartIcon = ({ toggleCartDropdown, itemCount }) => {
+const CartIcon = ({itemCount, dispatch }) => {
   return (
     <div
-      onClick={toggleCartDropdown}
+      onClick={()=>dispatch(toggleCartDropdown())}
       className="cart-icon relative w-11 h-7 flex justify-center items-center"
     >
       <div className="shopping-bag w-10 h-10">
@@ -21,12 +22,8 @@ const CartIcon = ({ toggleCartDropdown, itemCount }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleCartDropdown: () => dispatch(toggleCartDropdown()),
+const mapStateToProps = createStructuredSelector({
+  itemCount: selectCartItemsCount,
 });
 
-const mapStateToProps = (state) => ({
-  itemCount: selectCartItemsCount(state)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
+export default connect(mapStateToProps)(CartIcon);
