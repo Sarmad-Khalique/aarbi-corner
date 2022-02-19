@@ -3,13 +3,11 @@ import { connect } from "react-redux";
 
 import { ReactComponent as Close } from "../../assets/x.svg";
 import { toggleCartDropdown } from "../../redux/cart/cart.actions";
-import { useNavigate } from "react-router-dom";
 import CartItem from "../cart-item/CartItem";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
+import { withRouter } from "react-router-dom";
 
-const CartDropdown = ({ cartItems, toggleCartDropdown }) => {
-  let navigate = useNavigate();
-
+const CartDropdown = ({ cartItems, toggleCartDropdown, history }) => {
   return (
     <div
       className={`cart-dropdown border border-black w-screen h-screen top-0 md:w-60 md:h-96 absolute md:right-10 z-10 md:top-36 flex flex-col p-5 justify-between bg-white`}
@@ -21,17 +19,20 @@ const CartDropdown = ({ cartItems, toggleCartDropdown }) => {
         <Close />
       </span>
       <div className="cart-items mt-12 md:mt-0 h-[75vh] md:h-72 flex-col overflow-y-scroll">
-        {
-          cartItems.length
-          ?cartItems.map((item) => (
-          <CartItem key={item.id} item={item} />))
-          : <div className="text-center">Your Cart is Empty</div>
-      }
+        {cartItems.length ? (
+          cartItems.map((item) => <CartItem key={item.id} item={item} />)
+        ) : (
+          <div className="text-center">Your Cart is Empty</div>
+        )}
       </div>
-      <CustomButton onClick={() => {
-        navigate("/checkout");
-        toggleCartDropdown();
-      }}>Checkout</CustomButton>
+      <CustomButton
+        onClick={() => {
+          history.push("/checkout");
+          toggleCartDropdown();
+        }}
+      >
+        Checkout
+      </CustomButton>
     </div>
   );
 };
@@ -41,7 +42,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  cartItems: selectCartItems(state)
+  cartItems: selectCartItems(state),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartDropdown);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CartDropdown)
+);
