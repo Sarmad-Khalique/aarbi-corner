@@ -7,18 +7,20 @@ import {
   selectCartItemsTotal,
 } from "../../redux/cart/cart.selectors";
 
+import "./Checkout.styles.css"
+
 const Checkout = ({ cartItems, total }) => {
   return (
-    <div className="checkout-page px-6 md:px-[23%] relative">
+    <div className="checkout-page">
       <div className="checkout-table">
-        <div className="checkout-header py-2 flex justify-center border-y border-slate-400">
-          <div className="header-block w-1/2 px-2">
+        <div className="checkout-header">
+          <div className="header-block">
             <span>Description</span>
           </div>
-          <div className="header-block w-1/4 text-center">
+          <div className="header-block">
             <span>Quantity</span>
           </div>
-          <div className="header-block w-1/4 text-center">
+          <div className="header-block">
             <span>Price</span>
           </div>
         </div>
@@ -27,13 +29,14 @@ const Checkout = ({ cartItems, total }) => {
             <CheckoutItem key={cartItem.id} cartItem={cartItem} />
           ))
         ) : (
-          <div className="border-b border-slate-400 p-4 text-center">
+          <div className="empty-cart">
             Your Cart is Empty
           </div>
         )}
       </div>
-      <div className="text-3xl text-right py-2">Total: $ {total}</div>
-      <div className="stripe-payment text-right my-4">
+      <div className="total">Total: $ {total}</div>
+      <div className="warning">*Please use the following account for test payment*<br />CARD NUMBER:<span className="imp">4242 4242 4242 4242</span>-EXPIRY:<span className="imp">01/25</span>-CVC:<span className="imp">786</span></div>
+      <div className="stripe-payment">
         <StripeButtonCheckout price={total} />
       </div>
     </div>

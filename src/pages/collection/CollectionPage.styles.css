@@ -1,0 +1,25 @@
+.title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.items-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .items-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+    .items-container {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }

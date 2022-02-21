@@ -3,21 +3,18 @@ import { ReactComponent as Icon } from "../../assets/shopping-bag.svg";
 import { connect } from "react-redux";
 import { toggleCartDropdown } from "../../redux/cart/cart.actions";
 
-import { selectCartItemsCount } from "../../redux/cart/cart.selectors"
+import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
 
-const CartIcon = ({itemCount, dispatch }) => {
+import "./CartIcon.styles.css"
+
+const CartIcon = ({ itemCount, dispatch }) => {
   return (
-    <div
-      onClick={()=>dispatch(toggleCartDropdown())}
-      className="cart-icon relative w-11 h-7 flex justify-center items-center"
-    >
-      <div className="shopping-bag w-10 h-10">
+    <div onClick={() => dispatch(toggleCartDropdown())} className="cart-icon">
+      <div className="shopping-bag">
         <Icon />
       </div>
-      <span className="item-count absolute top-1">
-        {itemCount}
-      </span>
+      <span className="item-count">{itemCount}</span>
     </div>
   );
 };

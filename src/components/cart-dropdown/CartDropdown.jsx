@@ -7,22 +7,22 @@ import CartItem from "../cart-item/CartItem";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
 import { withRouter } from "react-router-dom";
 
+import "./CartDropdown.styles.css"
+
 const CartDropdown = ({ cartItems, toggleCartDropdown, history }) => {
   return (
-    <div
-      className={`cart-dropdown border border-black w-screen h-screen top-0 md:w-60 md:h-96 absolute md:right-10 z-10 md:top-36 flex flex-col p-5 justify-between bg-white`}
-    >
+    <div className="cart-dropdown">
       <span
         onClick={toggleCartDropdown}
-        className="md:hidden p-2 rounded-md bg-black text-white absolute right-6"
+        className="close-container"
       >
-        <Close />
+        <Close className="close" />
       </span>
-      <div className="cart-items mt-12 md:mt-0 h-[75vh] md:h-72 flex-col overflow-y-scroll">
+      <div className="cart-items">
         {cartItems.length ? (
           cartItems.map((item) => <CartItem key={item.id} item={item} />)
         ) : (
-          <div className="text-center">Your Cart is Empty</div>
+          <div className="empty">Your Cart is Empty</div>
         )}
       </div>
       <CustomButton

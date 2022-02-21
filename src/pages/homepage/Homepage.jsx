@@ -3,7 +3,7 @@ import DirectoryItems from '../../components/directory-items/DirectoryItems';
 
 const Homepage = () => {
     return (
-        <div className="homepage flex flex-col items-center px-6">
+        <div className="homepage">
             <DirectoryItems />
         </div>
     );

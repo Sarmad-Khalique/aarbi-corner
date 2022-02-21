@@ -3,14 +3,16 @@ import CollectionItem from "../../components/collection-item/CollectionItem";
 import { connect } from "react-redux";
 import { selectCollection } from "../../redux/shop/shop.selectors";
 
+import "./CollectionPage.styles.css"
+
 const CollectionPage = ({ collection }) => {
   const { title, items } = collection;
   return (
     <div className="collection-page">
-      <div className="text-center text-4xl font-bold uppercase mb-4">
+      <div className="title">
         {title}
       </div>
-      <div className="itmes-container gap-4 grid grid-cols-1 md:grid-cols-4">
+      <div className="items-container">
         {items.map((item) => (
           <CollectionItem key={item.id} item={item} />
         ))}
