@@ -1,19 +1,26 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import { ReactComponent as Logo } from "../../assets/logo.svg";
-import { ReactComponent as Ham } from "../../assets/ham.svg";
-
 import { auth } from "../../firebase/firebase.utils";
 
 import { connect } from "react-redux";
 import CartIcon from "../cart-icon/CartIcon";
+
 import CartDropdown from "../cart-dropdown/CartDropdown";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectCartDisplay } from "../../redux/cart/cart.selectors";
 
-import "./Header.styles.css"
+import { ReactComponent as Ham } from "../../assets/ham.svg";
+
+import {
+  HamContainer,
+  HeaderContainer,
+  LogoContainer,
+  LogoImage,
+  OptionsContainer,
+  LinkOption,
+} from "./Header.styles";
 
 class Header extends Component {
   constructor() {
@@ -24,47 +31,33 @@ class Header extends Component {
   }
   render() {
     return (
-      <div className="header">
-        <div className="logo-container">
+      <HeaderContainer>
+        <LogoContainer>
           <Link to="/">
-            <Logo className="logo" />
+            <LogoImage />
           </Link>
-          <div
-            className="ham"
+          <HamContainer
             onClick={() => this.setState({ menuOpen: !this.state.menuOpen })}
           >
             <Ham />
-          </div>
-        </div>
-        <div
-          className={`options ${
-            this.state.menuOpen ? "flex" : "hidden"
-          } flex-col text-2xl font-bold md:flex md:flex-row`}
-        >
-          <Link to="/shop" className="option">
-            SHOP
-          </Link>
-          <Link to="/shop" className="option">
-            CONTACT
-          </Link>
+          </HamContainer>
+        </LogoContainer>
+        <OptionsContainer menuOpen={this.state.menuOpen}>
+          <LinkOption to="/shop">SHOP</LinkOption>
+          <LinkOption to="/shop">CONTACT</LinkOption>
           {this.props.currentUser ? (
-            <div
-              className="option hover:cursor-pointer"
-              onClick={() => auth.signOut()}
-            >
+            <LinkOption as="div" onClick={() => auth.signOut()}>
               SIGN OUT
-            </div>
+            </LinkOption>
           ) : (
-            <Link to="/signin" className="option">
-              SIGN IN
-            </Link>
+            <LinkOption to="/signin">SIGN IN</LinkOption>
           )}
-          <div className="option hover:cursor-pointer">
+          <LinkOption as="div">
             <CartIcon />
-          </div>
-        </div>
+          </LinkOption>
+        </OptionsContainer>
         {this.props.hidden ? null : <CartDropdown />}
-      </div>
+      </HeaderContainer>
     );
   }
 }

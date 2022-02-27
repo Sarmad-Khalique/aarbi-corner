@@ -2,16 +2,16 @@ import { Route } from "react-router-dom";
 import CollectionOverview from "../../components/collection-overview/CollectionOverview";
 import CollectionPage from "../collection/CollectionPage";
 
-import "./Shop.styles.css"
+import { ShopPageContainer } from "./Shop.styles";
 const Shop = ({ match }) => {
   return (
-    <div className="shop-page">
+    <ShopPageContainer>
       <Route exact path={`${match.path}`} component={CollectionOverview} />
       <Route
         path={`${match.path}/:collectionName`}
         component={CollectionPage}
       />
-    </div>
+    </ShopPageContainer>
   );
 };
 

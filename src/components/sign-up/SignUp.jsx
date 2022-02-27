@@ -3,6 +3,13 @@ import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import {
+  FormContainer,
+  SubtitleContainer,
+  TitleContainer,
+  SignInContainer
+} from "../sign-in/SignIn.styles";
+import { ButtonContainer } from "./SignUp.styles";
 
 export default class SignUp extends Component {
   constructor() {
@@ -44,7 +51,7 @@ export default class SignUp extends Component {
         confirmPassword: "",
       });
     } catch (error) {
-      console.log("An error occoured:", error)
+      console.log("An error occoured:", error);
     }
 
     this.setState({
@@ -56,14 +63,12 @@ export default class SignUp extends Component {
   };
   render() {
     return (
-      <div className="sign-in-form-container flex flex-col md:w-[30vw]">
-        <h2 className="sign-in-title text-4xl font-semibold mb-3 my-2">
-          I don't have an acount
-        </h2>
-        <h4 className="sign-in-subtitle text-2xl font-semibold pb-8">
+      <SignInContainer>
+        <TitleContainer>I don't have an acount</TitleContainer>
+        <SubtitleContainer>
           Sign up with your email and password
-        </h4>
-        <form onSubmit={this.handleSubmit} className="w-full">
+        </SubtitleContainer>
+        <FormContainer onSubmit={this.handleSubmit}>
           <FormInput
             type="text"
             name="displayName"
@@ -92,11 +97,11 @@ export default class SignUp extends Component {
             value={this.state.confirmPassword}
             label="Confirm Password"
           />
-          <div className="grid grid-cols-1 md:grid-cols-2">
+          <ButtonContainer>
             <CustomButton type="submit">Sign up</CustomButton>
-          </div>
-        </form>
-      </div>
+          </ButtonContainer>
+        </FormContainer>
+      </SignInContainer>
     );
   }
 }

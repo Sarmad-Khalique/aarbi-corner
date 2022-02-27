@@ -6,16 +6,20 @@ import { toggleCartDropdown } from "../../redux/cart/cart.actions";
 import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
 
-import "./CartIcon.styles.css"
+import {
+  CartIconContainer,
+  ShoppingBagContainer,
+  CartItemCount,
+} from "./CartIcon.styles";
 
 const CartIcon = ({ itemCount, dispatch }) => {
   return (
-    <div onClick={() => dispatch(toggleCartDropdown())} className="cart-icon">
-      <div className="shopping-bag">
+    <CartIconContainer onClick={() => dispatch(toggleCartDropdown())}>
+      <ShoppingBagContainer>
         <Icon />
-      </div>
-      <span className="item-count">{itemCount}</span>
-    </div>
+      </ShoppingBagContainer>
+      <CartItemCount>{itemCount}</CartItemCount>
+    </CartIconContainer>
   );
 };
 

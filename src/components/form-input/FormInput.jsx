@@ -1,23 +1,22 @@
 import React from "react";
+import {
+  FormInputContainer,
+  FormInputLabel,
+  GroupContainer,
+} from "./FormInput.styles";
 
 const FormInput = ({ handleChange, label, ...otherInputProps }) => {
   return (
-    <div className="relative cursor-pointer my-11">
-      <input
-        onChange={handleChange}
-        {...otherInputProps}
-        className="pl-1 pr-2 pt-2 pb-2 text-2xl border-black border-b-2 transition duration-200 mb-6 block w-full"
-      />
+    <GroupContainer>
+      <FormInputContainer onChange={handleChange} {...otherInputProps} />
       {label ? (
-        <span
-          className={`${
-            otherInputProps.value.length ? "shrink" : ""
-          } text-2xl absolute left-1 px-1 top-2 transition duration-200 input-text`}
+        <FormInputLabel
+          className={otherInputProps.value.length ? "shrink" : ""}
         >
           {label}
-        </span>
+        </FormInputLabel>
       ) : null}
-    </div>
+    </GroupContainer>
   );
 };
 
