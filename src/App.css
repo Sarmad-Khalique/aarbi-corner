@@ -22,7 +22,3 @@
 body {
   font-family: "Open Sans Condensed", sans-serif;
 }
-
-input:focus {
-  outline: none !important;
-}

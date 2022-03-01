@@ -62,6 +62,7 @@ export const QuantityContainer = styled.div`
 export const QuantityArrows = styled.span`
   font-weight: 700;
   font-size: 18px;
+  cursor: pointer;
 `;
 
 export const Quantity = styled.span`

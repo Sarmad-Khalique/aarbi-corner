@@ -1,6 +1,6 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import "firebase/compat/firestore"
+import "firebase/compat/firestore";
 
 const config = {
   apiKey: "AIzaSyCQDPVX_vjf7C0HKCQL-6JTPX5Z0xPY35I",
@@ -17,41 +17,75 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-//Firestore For users
-export const createUserProfileDocument = async (userAuth, additionalUserData)=>{
-  // returning if the user is nt logged in
-  if(!userAuth) return;
+//Adding Collections to Firestore
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
 
-  
-  const userRef = firestore.doc(`users/${userAuth.uid}`)
-  
+  const batch = firestore.batch();
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit();
+};
+
+// Data Transformation from firestore data to required format
+export const convertCollectionsToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      id: doc.id,
+      title,
+      items,
+      routeName: encodeURI(`shop/${title.toLowerCase()}`),
+    };
+  });
+
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
+};
+
+//Firestore For users
+export const createUserProfileDocument = async (
+  userAuth,
+  additionalUserData
+) => {
+  // returning if the user is nt logged in
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
   const userSnapShot = await userRef.get();
-  
-  if(!userSnapShot.exists){
-    const {displayName, email} = userAuth;
+
+  if (!userSnapShot.exists) {
+    const { displayName, email } = userAuth;
     const createdAt = new Date().toDateString();
-    
+
     try {
-      await userRef.set(
-        {
-          displayName,
-          email,
-          createdAt,
-          ...additionalUserData
-        }
-      )
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalUserData,
+      });
     } catch (error) {
       console.log("An error occoured: ", error);
     }
-
   }
 
   return userRef;
-}
+};
 
 // Google Auth Provider with Popup
 const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({'prompt':'select_account'})
-export const signInWithGoogle = ()=>auth.signInWithPopup(provider);
+provider.setCustomParameters({ prompt: "select_account" });
+export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;

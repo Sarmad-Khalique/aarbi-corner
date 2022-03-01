@@ -34,6 +34,9 @@ export const BackgroundImage = styled.div`
   height: 95%;
   overflow: hidden;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+  background-position: center;
+  background-cover: cover;
+  background-size: cover;
 `;
 
 export const FooterContainer = styled.div`
@@ -46,12 +49,11 @@ export const FooterContainer = styled.div`
   font-weight: 600;
   font-size: 18px;
   letter-spacing: 1px;
-  }
+  padding: 0 0.5rem;
 `;
 
 export const NameContainer = styled.span`
   width: 90%;
-  margin-bottom: 15px;
 `;
 
 export const PriceContainer = styled.span`

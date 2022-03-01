@@ -13,6 +13,7 @@ export const MenuItemContainer = styled.div`
   margin: 0.5rem;
   cursor: pointer;
   border: 1px solid black;
+  position: relative;
 
   @media ${device.tablet} {
     min-width: 30%;
@@ -34,28 +35,27 @@ export const MenuItemBackground = styled.div`
 export const ContentContainer = styled.div`
   position: absolute;
   height: 5rem;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  padding: 1rem;
   border: 1px solid black;
   cursor: pointer;
   background-color: #fff;
   opacity: 0.7;
-  text-align: center;
 
   &:hover {
     opacity: 0.9;
   }
 `;
 
-export const ContentTitle = styled.h1`
+export const ContentTitle = styled.span`
   font-size: 20px;
-  line-height: 1rem;
-  margin-bottom: 0.25rem;
+  font-weight: 600;
 `;
 
-export const ContentSubtitle = styled.p`
+export const ContentSubtitle = styled.span`
   font-weight: 300;
   font-size: 18px;
 `;

@@ -7,6 +7,7 @@ export const CartIconContainer = styled.div`
   width: 3rem;
   height: 3rem;
   position: relative;
+  cursor: pointer;
 `;
 
 export const ShoppingBagContainer = styled.div`

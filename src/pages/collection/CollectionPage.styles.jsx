@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { device } from "../../utils/devices/devices.styles";
 
 export const CollectionPageContainer = styled.div`
-  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const CollectionTitle = styled.div`
