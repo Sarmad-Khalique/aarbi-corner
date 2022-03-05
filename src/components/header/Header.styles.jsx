@@ -74,7 +74,6 @@ export const OptionsContainer = styled.div`
   background: white;
   clip-path: circle(0px at 90% -10%);
   transition: all 0.5s ease-out;
-  pointer-events: none;
 
   @media ${device.tablet} {
     display: flex;
