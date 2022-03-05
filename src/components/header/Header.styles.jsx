@@ -10,6 +10,7 @@ export const HeaderContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 1.75rem 2.5rem;
+  position: relative;
   @media ${device.tablet} {
     height: 12rem;
     flex-direction: row;
@@ -40,21 +41,50 @@ export const LogoImage = styled(Logo)`
 `;
 
 export const HamContainer = styled.div`
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translate(-5%, -50%);
+  z-index: 3;
+  cursor: pointer;
   @media ${device.tablet} {
     display: none;
   }
 `;
 
+export const Line = styled.div`
+  width: 30px;
+  height: 3px;
+  background: #000;
+  margin: 5px;
+`;
+
 export const OptionsContainer = styled.div`
-  display: ${({ menuOpen }) => (menuOpen ? "flex" : "none")};
+  display: flex;
   flex-direction: column;
+  position: fixed;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 100vh;
+  padding: 2rem 0rem;
+  z-index: 2;
   font-size: 18px;
-  line-height: 20px;
   font-weight: 600;
+  background: white;
+  clip-path: circle(0px at 90% -10%);
+  transition: all 0.5s ease-out;
+  pointer-events: none;
 
   @media ${device.tablet} {
     display: flex;
     flex-direction: row;
+    position: relative;
+    width: auto;
+    height: 100%;
+    clip-path: none;
+    -webkit-clip-path: none;
+    padding: 0 0;
   }
 `;
 

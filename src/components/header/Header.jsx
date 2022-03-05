@@ -11,8 +11,6 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectCartDisplay } from "../../redux/cart/cart.selectors";
 
-import { ReactComponent as Ham } from "../../assets/ham.svg";
-
 import {
   HamContainer,
   HeaderContainer,
@@ -20,6 +18,7 @@ import {
   LogoImage,
   OptionsContainer,
   LinkOption,
+  Line,
 } from "./Header.styles";
 
 class Header extends Component {
@@ -39,18 +38,33 @@ class Header extends Component {
           <HamContainer
             onClick={() => this.setState({ menuOpen: !this.state.menuOpen })}
           >
-            <Ham />
+            <Line />
+            <Line />
+            <Line />
           </HamContainer>
         </LogoContainer>
-        <OptionsContainer menuOpen={this.state.menuOpen}>
-          <LinkOption to="/shop">SHOP</LinkOption>
-          <LinkOption to="/shop">CONTACT</LinkOption>
+        <OptionsContainer
+          menuOpen={this.state.menuOpen}
+          className={`${this.state.menuOpen ? "options-open" : ""}`}
+        >
+          <LinkOption
+            onClick={() => this.setState({ menuOpen: !this.state.menuOpen })}
+            to="/shop"
+          >
+            SHOP
+          </LinkOption>
+          <LinkOption
+            onClick={() => this.setState({ menuOpen: !this.state.menuOpen })}
+            to="/shop"
+          >
+            CONTACT
+          </LinkOption>
           {this.props.currentUser ? (
             <LinkOption as="div" onClick={() => auth.signOut()}>
               SIGN OUT
             </LinkOption>
           ) : (
-            <LinkOption to="/signin">SIGN IN</LinkOption>
+            <LinkOption onClick={() => this.setState({ menuOpen: !this.state.menuOpen })} to="/signin">SIGN IN</LinkOption>
           )}
           <LinkOption as="div">
             <CartIcon />
