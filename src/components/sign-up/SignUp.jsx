@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 
@@ -7,30 +7,27 @@ import {
   FormContainer,
   SubtitleContainer,
   TitleContainer,
-  SignInContainer
+  SignInContainer,
 } from "../sign-in/SignIn.styles";
 import { ButtonContainer } from "./SignUp.styles";
 
-export default class SignUp extends Component {
-  constructor() {
-    super();
-    this.state = {
-      displayName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    };
-  }
-  handleChange = (e) => {
+const SignUp = () => {
+  const [userCredentials, setUserCredentials] = useState({
+    displayName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
 
-    this.setState({ [name]: value });
+    setUserCredentials({ [name]: value });
   };
 
-  handleSubmit = async (e) => {
+  const { displayName, email, password, confirmPassword } = userCredentials;
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const { displayName, email, password, confirmPassword } = this.state;
 
     if (password !== confirmPassword) {
       alert("Password's don't match");
@@ -44,7 +41,7 @@ export default class SignUp extends Component {
       );
       createUserProfileDocument(user, { displayName });
 
-      this.setState({
+      setUserCredentials({
         displayName: "",
         email: "",
         password: "",
@@ -54,54 +51,54 @@ export default class SignUp extends Component {
       console.log("An error occoured:", error);
     }
 
-    this.setState({
+    setUserCredentials({
       displayName: "",
       email: "",
       password: "",
       confirmPassword: "",
     });
   };
-  render() {
-    return (
-      <SignInContainer>
-        <TitleContainer>I don't have an acount</TitleContainer>
-        <SubtitleContainer>
-          Sign up with your email and password
-        </SubtitleContainer>
-        <FormContainer onSubmit={this.handleSubmit}>
-          <FormInput
-            type="text"
-            name="displayName"
-            onChange={this.handleChange}
-            value={this.state.displayName}
-            label="Display Name"
-          />
-          <FormInput
-            type="email"
-            name="email"
-            onChange={this.handleChange}
-            value={this.state.email}
-            label="Email"
-          />
-          <FormInput
-            type="password"
-            name="password"
-            onChange={this.handleChange}
-            value={this.state.password}
-            label="Password"
-          />
-          <FormInput
-            type="password"
-            name="confirmPassword"
-            onChange={this.handleChange}
-            value={this.state.confirmPassword}
-            label="Confirm Password"
-          />
-          <ButtonContainer>
-            <CustomButton type="submit">Sign up</CustomButton>
-          </ButtonContainer>
-        </FormContainer>
-      </SignInContainer>
-    );
-  }
-}
+  return (
+    <SignInContainer>
+      <TitleContainer>I don't have an acount</TitleContainer>
+      <SubtitleContainer>
+        Sign up with your email and password
+      </SubtitleContainer>
+      <FormContainer onSubmit={handleSubmit}>
+        <FormInput
+          type="text"
+          name="displayName"
+          onChange={handleChange}
+          value={displayName}
+          label="Display Name"
+        />
+        <FormInput
+          type="email"
+          name="email"
+          onChange={handleChange}
+          value={email}
+          label="Email"
+        />
+        <FormInput
+          type="password"
+          name="password"
+          onChange={handleChange}
+          value={password}
+          label="Password"
+        />
+        <FormInput
+          type="password"
+          name="confirmPassword"
+          onChange={handleChange}
+          value={confirmPassword}
+          label="Confirm Password"
+        />
+        <ButtonContainer>
+          <CustomButton type="submit">Sign up</CustomButton>
+        </ButtonContainer>
+      </FormContainer>
+    </SignInContainer>
+  );
+};
+
+export default SignUp;
