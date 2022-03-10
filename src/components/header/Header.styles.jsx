@@ -90,5 +90,6 @@ export const OptionsContainer = styled.div`
 export const LinkOption = styled(Link)`
   padding: 1rem 0.75rem;
   text-decoration: none;
+  cursor: pointer;
   color: #000;
 `;

@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import { setCurrentUser } from "./redux/user/user.actions";
 
 import "./App.css";
 
@@ -12,37 +10,11 @@ import Header from "./components/header/Header";
 
 import SignInandSignUpPage from "./pages/SignInandSignUpPage/SignInandSignUpPage";
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { Redirect } from "react-router-dom";
 
-const App = ({ setCurrentUser, currentUser }) => {
-
-  useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      const userRef = await createUserProfileDocument(userAuth);
-
-      //setting state if the user is logged in
-      if (userAuth) {
-        //onSnapshot checks if the snapshot has updated, using it here to get the copy of the snapshot as the snapshot will never change because we are not updating it
-        userRef.onSnapshot((snapshot) => {
-          setCurrentUser({
-            id: snapshot.id,
-            ...snapshot.data(),
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
-
-    return () => {
-      unsubscribeFromAuth();
-    };
-  }, [currentUser]);
-
+const App = ({ currentUser }) => {
   return (
     <div>
       <Header />
@@ -66,8 +38,4 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

@@ -21,7 +21,7 @@ import {
   Line,
 } from "./Header.styles";
 
-const Header = ({currentUser, hidden}) => {
+const Header = ({ currentUser, hidden }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -30,9 +30,7 @@ const Header = ({currentUser, hidden}) => {
         <Link to="/">
           <LogoImage />
         </Link>
-        <HamContainer
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
+        <HamContainer onClick={() => setMenuOpen(!menuOpen)}>
           <Line />
           <Line />
           <Line />
@@ -42,16 +40,10 @@ const Header = ({currentUser, hidden}) => {
         menuOpen={menuOpen}
         className={`${menuOpen ? "options-open" : ""}`}
       >
-        <LinkOption
-          onClick={() => setMenuOpen(!menuOpen)}
-          to="/shop"
-        >
+        <LinkOption onClick={() => setMenuOpen(!menuOpen)} to="/shop">
           SHOP
         </LinkOption>
-        <LinkOption
-          onClick={() => setMenuOpen(!menuOpen)}
-          to="/shop"
-        >
+        <LinkOption onClick={() => setMenuOpen(!menuOpen)} to="/shop">
           CONTACT
         </LinkOption>
         {currentUser ? (
@@ -59,14 +51,11 @@ const Header = ({currentUser, hidden}) => {
             SIGN OUT
           </LinkOption>
         ) : (
-          <LinkOption
-            onClick={() => setMenuOpen(!menuOpen)}
-            to="/signin"
-          >
+          <LinkOption onClick={() => setMenuOpen(!menuOpen)} to="/signin">
             SIGN IN
           </LinkOption>
         )}
-        <LinkOption as="div">
+        <LinkOption as="div" onClick={() => setMenuOpen(!menuOpen)}>
           <CartIcon />
         </LinkOption>
       </OptionsContainer>

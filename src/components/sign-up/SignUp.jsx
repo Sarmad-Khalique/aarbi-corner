@@ -1,8 +1,8 @@
-import React, { Component, useState } from "react";
+import { useState } from "react";
 import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+// import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 import {
   FormContainer,
   SubtitleContainer,
@@ -11,7 +11,11 @@ import {
 } from "../sign-in/SignIn.styles";
 import { ButtonContainer } from "./SignUp.styles";
 
-const SignUp = () => {
+import { connect } from "react-redux";
+
+import { signUpStart } from "../../redux/user/user.actions";
+
+const SignUp = ({signUpStart}) => {
   const [userCredentials, setUserCredentials] = useState({
     displayName: "",
     email: "",
@@ -22,7 +26,7 @@ const SignUp = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setUserCredentials({ [name]: value });
+    setUserCredentials({ ...userCredentials, [name]: value });
   };
 
   const { displayName, email, password, confirmPassword } = userCredentials;
@@ -34,22 +38,7 @@ const SignUp = () => {
       return;
     }
 
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      createUserProfileDocument(user, { displayName });
-
-      setUserCredentials({
-        displayName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-    } catch (error) {
-      console.log("An error occoured:", error);
-    }
+    signUpStart(email, password, displayName);
 
     setUserCredentials({
       displayName: "",
@@ -100,5 +89,9 @@ const SignUp = () => {
     </SignInContainer>
   );
 };
+const mapDispatchToProps = (dispatch) => ({
+  signUpStart: (email, password, displayName) =>
+    dispatch(signUpStart({ email, password, displayName })),
+});
 
-export default SignUp;
+export default connect(null, mapDispatchToProps)(SignUp);
