@@ -2,7 +2,6 @@ import { useState } from "react";
 import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 
-// import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 import {
   FormContainer,
   SubtitleContainer,
@@ -11,17 +10,19 @@ import {
 } from "../sign-in/SignIn.styles";
 import { ButtonContainer } from "./SignUp.styles";
 
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { signUpStart } from "../../redux/user/user.actions";
 
-const SignUp = ({signUpStart}) => {
+const SignUp = () => {
   const [userCredentials, setUserCredentials] = useState({
     displayName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +39,7 @@ const SignUp = ({signUpStart}) => {
       return;
     }
 
-    signUpStart(email, password, displayName);
+    dispatch(signUpStart({ displayName, email, password }));
 
     setUserCredentials({
       displayName: "",
@@ -89,9 +90,6 @@ const SignUp = ({signUpStart}) => {
     </SignInContainer>
   );
 };
-const mapDispatchToProps = (dispatch) => ({
-  signUpStart: (email, password, displayName) =>
-    dispatch(signUpStart({ email, password, displayName })),
-});
 
-export default connect(null, mapDispatchToProps)(SignUp);
+
+export default SignUp;

@@ -1,4 +1,5 @@
-import { connect } from "react-redux";
+import React from 'react'
+import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cart/cart.actions";
 
 import {
@@ -10,7 +11,9 @@ import {
   AddButton,
 } from "./CollectionItem.styles";
 
-const CollectionItem = ({ item, dispatch }) => {
+const CollectionItem = ({ item }) => {
+  const dispatch = useDispatch();
+
   const { name, imageUrl, price } = item;
 
   return (
@@ -31,4 +34,4 @@ const CollectionItem = ({ item, dispatch }) => {
   );
 };
 
-export default connect()(CollectionItem);
+export default CollectionItem;
