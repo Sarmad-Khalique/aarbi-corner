@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import React from "react";
+import { useSelector } from "react-redux";
 import CheckoutItem from "../../components/checkout-item/CheckoutItem";
 import StripeButtonCheckout from "../../components/stripe-button-checkout/StripeButtonCheckout";
 import {
@@ -7,9 +7,12 @@ import {
   selectCartItemsTotal,
 } from "../../redux/cart/cart.selectors";
 
-import "./Checkout.styles.css"
+import "./Checkout.styles.css";
 
-const Checkout = ({ cartItems, total }) => {
+const Checkout = () => {
+  const cartItems = useSelector(selectCartItems);
+  const total = useSelector(selectCartItemsTotal);
+
   return (
     <div className="checkout-page">
       <div className="checkout-table">
@@ -29,13 +32,16 @@ const Checkout = ({ cartItems, total }) => {
             <CheckoutItem key={cartItem.id} cartItem={cartItem} />
           ))
         ) : (
-          <div className="empty-cart">
-            Your Cart is Empty
-          </div>
+          <div className="empty-cart">Your Cart is Empty</div>
         )}
       </div>
       <div className="total">Total: $ {total}</div>
-      <div className="warning">*Please use the following account for test payment*<br />CARD NUMBER:<span className="imp">4242 4242 4242 4242</span>-EXPIRY:<span className="imp">01/25</span>-CVC:<span className="imp">786</span></div>
+      <div className="warning">
+        *Please use the following account for test payment*
+        <br />
+        CARD NUMBER:<span className="imp">4242 4242 4242 4242</span>-EXPIRY:
+        <span className="imp">01/25</span>-CVC:<span className="imp">786</span>
+      </div>
       <div className="stripe-payment">
         <StripeButtonCheckout price={total} />
       </div>
@@ -43,9 +49,4 @@ const Checkout = ({ cartItems, total }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems,
-  total: selectCartItemsTotal,
-});
-
-export default connect(mapStateToProps)(Checkout);
+export default Checkout;
