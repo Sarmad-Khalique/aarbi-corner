@@ -1,8 +1,8 @@
 import { createContext } from "react";
-import CartProvider from "./cart/cart.provider";
-import DirectoryProvider from "./directory/directory.provider";
-import ShopProvider from "./shop/shop.provider";
-import UserProvider from "./user/user.provider";
+import CartProvider from "./provider/cart/cart.provider";
+import DirectoryProvider from "./provider/directory/directory.provider";
+import ShopProvider from "./provider/shop/shop.provider";
+import UserProvider from "./provider/user/user.provider";
 
 const RootContext = createContext();
 
