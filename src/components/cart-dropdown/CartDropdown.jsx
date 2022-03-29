@@ -1,12 +1,7 @@
-import React from 'react'
+import React, { useContext } from "react";
 
-import CustomButton from "../custom-button/CustomButton";
-import { useDispatch, useSelector } from "react-redux";
-
-import { toggleCartDropdown } from "../../redux/cart/cart.actions";
 import CartItem from "../cart-item/CartItem";
-import { selectCartItems } from "../../redux/cart/cart.selectors";
-import { withRouter } from "react-router-dom";
+import CustomButton from "../custom-button/CustomButton";
 
 import {
   CartDropdownContainer,
@@ -16,13 +11,17 @@ import {
   EmptyCartContainer,
 } from "./CartDropdown.styles";
 
-const CartDropdown = ({ history }) => {
-  const cartItems = useSelector(selectCartItems);
-  const dispatch = useDispatch();
+import { useHistory } from "react-router-dom";
+import { CartContext } from "../../context/provider/cart/cart.provider";
+
+const CartDropdown = () => {
+  const history = useHistory();
+
+  const {toggleHidden, cartItems} = useContext(CartContext);
 
   return (
     <CartDropdownContainer>
-      <CloseButtonContainer onClick={()=>dispatch(toggleCartDropdown())}>
+      <CloseButtonContainer onClick={() => toggleHidden()}>
         <CloseButton />
       </CloseButtonContainer>
       <CartItemsContainer>
@@ -35,7 +34,7 @@ const CartDropdown = ({ history }) => {
       <CustomButton
         onClick={() => {
           history.push("/checkout");
-          dispatch(toggleCartDropdown());
+          toggleHidden();
         }}
       >
         Checkout
@@ -44,4 +43,4 @@ const CartDropdown = ({ history }) => {
   );
 };
 
-export default withRouter(CartDropdown);
+export default CartDropdown;

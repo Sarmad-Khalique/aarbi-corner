@@ -1,10 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  googleSignInStart,
-  emailSignInStart,
-} from "../../redux/user/user.actions";
+import { UserContext } from "../../context/provider/user/user.provider";
 import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 
@@ -17,12 +13,12 @@ import {
 } from "./SignIn.styles";
 
 const SignIn = () => {
+  const { loginUser } = useContext(UserContext);
+
   const [userCredentials, setUserCredentials] = useState({
-    email: "",
+    username: "",
     password: "",
   });
-
-  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,13 +26,13 @@ const SignIn = () => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  let { email, password } = userCredentials;
+  let { username, password } = userCredentials;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = userCredentials;
+    const { username, password } = userCredentials;
 
-    dispatch(emailSignInStart({ email, password }));
+    loginUser({ username, password });
   };
 
   return (
@@ -47,11 +43,11 @@ const SignIn = () => {
       </SubtitleContainer>
       <FormContainer onSubmit={handleSubmit}>
         <FormInput
-          type="email"
-          name="email"
+          type="username"
+          name="username"
           onChange={handleChange}
-          value={email}
-          label="Email"
+          value={username}
+          label="Username"
         />
         <FormInput
           type="password"
@@ -65,7 +61,6 @@ const SignIn = () => {
           <CustomButton
             type="button"
             isGoogleSignIn
-            onClick={() => dispatch(googleSignInStart())}
           >
             Google Sign In
           </CustomButton>

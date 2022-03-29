@@ -1,14 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
 import CartIcon from "../cart-icon/CartIcon";
 
 import CartDropdown from "../cart-dropdown/CartDropdown";
-import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { selectCartDisplay } from "../../redux/cart/cart.selectors";
 
 import {
   HamContainer,
@@ -20,15 +17,15 @@ import {
   Line,
 } from "./Header.styles";
 
-import { signOutStart } from "../../redux/user/user.actions";
+import { CartContext } from '../../context/provider/cart/cart.provider';
+import { UserContext } from '../../context/provider/user/user.provider';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const currentUser = useSelector(selectCurrentUser);
-  const hidden = useSelector(selectCartDisplay);
-
-  const dispatch = useDispatch();
+  const {userLoggedIn, logoutUser} = useContext(UserContext);
+  
+  const {hidden} = useContext(CartContext);
 
   return (
     <HeaderContainer>
@@ -52,8 +49,8 @@ const Header = () => {
         <LinkOption onClick={() => setMenuOpen(!menuOpen)} to="/shop">
           CONTACT
         </LinkOption>
-        {currentUser ? (
-          <LinkOption as="div" onClick={() => dispatch(signOutStart())}>
+        {userLoggedIn ? (
+          <LinkOption as="div" onClick={() => logoutUser()}>
             SIGN OUT
           </LinkOption>
         ) : (

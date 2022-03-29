@@ -1,11 +1,6 @@
-import React from 'react'
+import React, { useContext } from "react";
 
 import { ReactComponent as Icon } from "../../assets/shopping-bag.svg";
-
-import { useDispatch, useSelector } from "react-redux";
-import { toggleCartDropdown } from "../../redux/cart/cart.actions";
-
-import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
 
 import {
   CartIconContainer,
@@ -13,16 +8,17 @@ import {
   CartItemCount,
 } from "./CartIcon.styles";
 
+import { CartContext } from "../../context/provider/cart/cart.provider";
+
 const CartIcon = () => {
-  const itemCount = useSelector(selectCartItemsCount);
-  const dispatch = useDispatch();
+  const { toggleHidden, cartItemsCount } = useContext(CartContext);
 
   return (
-    <CartIconContainer onClick={() => dispatch(toggleCartDropdown())}>
+    <CartIconContainer onClick={() => toggleHidden()}>
       <ShoppingBagContainer>
         <Icon />
       </ShoppingBagContainer>
-      <CartItemCount>{itemCount}</CartItemCount>
+      <CartItemCount>{cartItemsCount}</CartItemCount>
     </CartIconContainer>
   );
 };

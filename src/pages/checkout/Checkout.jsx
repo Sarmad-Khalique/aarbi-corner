@@ -1,17 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
+
 import CheckoutItem from "../../components/checkout-item/CheckoutItem";
 import StripeButtonCheckout from "../../components/stripe-button-checkout/StripeButtonCheckout";
-import {
-  selectCartItems,
-  selectCartItemsTotal,
-} from "../../redux/cart/cart.selectors";
+import { CartContext } from "../../context/provider/cart/cart.provider";
 
 import "./Checkout.styles.css";
 
 const Checkout = () => {
-  const cartItems = useSelector(selectCartItems);
-  const total = useSelector(selectCartItemsTotal);
+  
+  const {cartItems, cartTotal} = useContext(CartContext);
 
   return (
     <div className="checkout-page">
@@ -35,7 +32,7 @@ const Checkout = () => {
           <div className="empty-cart">Your Cart is Empty</div>
         )}
       </div>
-      <div className="total">Total: $ {total}</div>
+      <div className="total">Total: $ {cartTotal}</div>
       <div className="warning">
         *Please use the following account for test payment*
         <br />
@@ -43,7 +40,7 @@ const Checkout = () => {
         <span className="imp">01/25</span>-CVC:<span className="imp">786</span>
       </div>
       <div className="stripe-payment">
-        <StripeButtonCheckout price={total} />
+        <StripeButtonCheckout price={cartTotal} />
       </div>
     </div>
   );

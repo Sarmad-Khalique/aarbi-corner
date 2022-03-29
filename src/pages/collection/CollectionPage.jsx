@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import CollectionItem from "../../components/collection-item/CollectionItem";
-
-import { useSelector } from "react-redux";
-import { selectCollection } from "../../redux/shop/shop.selectors";
 
 import {
   CollectionPageContainer,
@@ -12,9 +9,16 @@ import {
 } from "./CollectionPage.styles";
 import { useParams } from "react-router-dom";
 
+import { ShopContext } from "../../context/provider/shop/shop.provider";
+
 const CollectionPage = () => {
+  const { collections, getCollectionByTitle } = useContext(ShopContext);
   const urlParams = useParams();
-  const collection = useSelector(selectCollection(urlParams.collectionName));
+
+  const collection = getCollectionByTitle(
+    collections,
+    urlParams.collectionName
+  );
 
   const { title, items } = collection;
   return (

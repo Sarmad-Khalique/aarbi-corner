@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CustomButton from "../custom-button/CustomButton";
 import FormInput from "../form-input/FormInput";
 
@@ -10,19 +10,17 @@ import {
 } from "../sign-in/SignIn.styles";
 import { ButtonContainer } from "./SignUp.styles";
 
-import { useDispatch } from "react-redux";
-
-import { signUpStart } from "../../redux/user/user.actions";
+import { UserContext } from "../../context/provider/user/user.provider";
 
 const SignUp = () => {
+  const { signUpUser } = useContext(UserContext);
+
   const [userCredentials, setUserCredentials] = useState({
-    displayName: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
-  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +28,7 @@ const SignUp = () => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  const { displayName, email, password, confirmPassword } = userCredentials;
+  const { username, email, password, confirmPassword } = userCredentials;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,10 +37,10 @@ const SignUp = () => {
       return;
     }
 
-    dispatch(signUpStart({ displayName, email, password }));
+    signUpUser({ username, email, password, confirmPassword});
 
     setUserCredentials({
-      displayName: "",
+      username: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -56,11 +54,11 @@ const SignUp = () => {
       </SubtitleContainer>
       <FormContainer onSubmit={handleSubmit}>
         <FormInput
-          type="text"
-          name="displayName"
+          type="username"
+          name="username"
           onChange={handleChange}
-          value={displayName}
-          label="Display Name"
+          value={username}
+          label="Username"
         />
         <FormInput
           type="email"
@@ -90,6 +88,5 @@ const SignUp = () => {
     </SignInContainer>
   );
 };
-
 
 export default SignUp;

@@ -1,34 +1,34 @@
-import React from 'react'
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { Route } from "react-router-dom";
 
-import { fetchCollectionStart } from "../../redux/shop/shop.actions";
-
 import { ShopPageContainer } from "./Shop.styles";
 
-import { useDispatch } from "react-redux";
-
-import CollectionOverviewContainer from "../../components/collection-overview/CollecionOverview.container";
+import { ShopContext } from "../../context/provider/shop/shop.provider";
+import CollectionOverviewContainer from "../../components/collection-overview/CollectionOverview.container";
 import CollectionPageContainer from "../collection/CollectionPage.container";
 
-const Shop = ({ match }) => {
-  const dispatch = useDispatch();
-  
+const Shop = ({match}) => {
+  const {fetchingCollection} = useContext(ShopContext);
+
   useEffect(() => {
-    dispatch(fetchCollectionStart());
-  }, [dispatch]);
+    console.log("Shop Rendered");
+    fetchingCollection();
+  }, [])
+  
 
   return (
     <ShopPageContainer>
-      <Route
-        exact
-        path={`${match.path}`}
-        component={CollectionOverviewContainer}
-      />
-      <Route
-        path={`${match.path}/:collectionName`}
-        component={CollectionPageContainer}
-      />
+        <Route
+          exact
+          path={`${match.path}`}
+          component={CollectionOverviewContainer}
+        />
+        <Route
+          path={`${match.path}/:collectionName`}
+          component={CollectionPageContainer}
+        />
+
     </ShopPageContainer>
   );
 };

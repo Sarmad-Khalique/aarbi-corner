@@ -1,6 +1,5 @@
-import React from 'react'
-import { useDispatch } from "react-redux";
-import { addItem } from "../../redux/cart/cart.actions";
+import React, { useContext } from 'react'
+import { CartContext } from '../../context/provider/cart/cart.provider';
 
 import {
   CollectionItemContainer,
@@ -12,7 +11,7 @@ import {
 } from "./CollectionItem.styles";
 
 const CollectionItem = ({ item }) => {
-  const dispatch = useDispatch();
+  const { addItem } = useContext(CartContext);
 
   const { name, imageUrl, price } = item;
 
@@ -27,7 +26,7 @@ const CollectionItem = ({ item }) => {
         </NameContainer>
         <PriceContainer>${price}</PriceContainer>
       </FooterContainer>
-      <AddButton inverted onClick={() => dispatch(addItem(item))}>
+      <AddButton inverted onClick={() => addItem(item)}>
         Add to Cart
       </AddButton>
     </CollectionItemContainer>

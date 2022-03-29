@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
-import { Route, Switch } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { Route, Switch, Redirect } from "react-router-dom";
+
 
 import "./App.css";
 
@@ -11,18 +11,15 @@ import Checkout from "./pages/checkout/Checkout";
 import Header from "./components/header/Header";
 
 import SignInandSignUpPage from "./pages/SignInandSignUpPage/SignInandSignUpPage";
-
-import { selectCurrentUser } from "./redux/user/user.selectors";
-import { Redirect } from "react-router-dom";
-import { checkUserSession } from "./redux/user/user.actions";
+import { UserContext } from "./context/provider/user/user.provider";
 
 const App = () => {
-  const currentUser = useSelector(selectCurrentUser);
-  const dispatch = useDispatch();
+  const {userLoggedIn, checkUserSession} = useContext(UserContext);
 
-  useEffect(() => {
-    dispatch(checkUserSession());
-  }, [dispatch]);
+  useEffect(()=>{
+    console.log("App rendered");
+    checkUserSession();
+  },[checkUserSession])
 
   return (
     <div>
@@ -34,9 +31,7 @@ const App = () => {
         <Route
           exact
           path="/signin"
-          render={() =>
-            currentUser ? <Redirect to="/" /> : <SignInandSignUpPage />
-          }
+          render={()=> userLoggedIn ? <Redirect to="/" /> : <SignInandSignUpPage />}
         />
       </Switch>
     </div>
